@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"log"
+	"error"
 )
 
 type Matrix struct {
@@ -31,6 +32,10 @@ func (ourMatrix Matrix) columnSize() int{
 }
 // to set element
 func (ourMatrix *Matrix) setElements(rowIndex, colIndex, Value int){
+	if rowIndex >= ourMatrix.rowSize() || colIndex >= ourMatrix.columnSize() {
+		fmt.Print("Can't work with these indices")
+		return
+	}
 	 ourMatrix.twoDMatrix[rowIndex][colIndex] = Value
 }
 // to add 2 matrices
