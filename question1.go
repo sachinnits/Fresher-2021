@@ -4,21 +4,20 @@ import (
 	"encoding/json"
 	"fmt"
 	"log"
-	"error"
 )
 
 type Matrix struct {
 	numOfRows, numOfColumns int
-	twoDMatrix [][]int
+	TwoDMatrix              [][]int
 }
 func Initialiser(rows, cols int) *Matrix{
 	matrix := &Matrix{
-		numOfRows:  rows,
+		numOfRows:    rows,
 		numOfColumns: cols,
-		twoDMatrix: make([][]int, rows) , //Creates a regular array instead of 2D
+		TwoDMatrix:   make([][]int, rows) , //Creates a regular array instead of 2D
 	}
-	for iterator:=range matrix.twoDMatrix{
-		matrix.twoDMatrix[iterator] = make([]int, cols)
+	for iterator:=range matrix.TwoDMatrix {
+		matrix.TwoDMatrix[iterator] = make([]int, cols)
 	}
 	return matrix
 }
@@ -36,13 +35,13 @@ func (ourMatrix *Matrix) setElements(rowIndex, colIndex, Value int){
 		fmt.Print("Can't work with these indices")
 		return
 	}
-	 ourMatrix.twoDMatrix[rowIndex][colIndex] = Value
+	 ourMatrix.TwoDMatrix[rowIndex][colIndex] = Value
 }
 // to add 2 matrices
 func (ourMatrix Matrix) addMatrix(secondMatrix , sumMatrix *Matrix) {
 	for row:=0 ; row < sumMatrix.rowSize() ; row++ {
 		for col := 0; col < sumMatrix.columnSize(); col++ {
-			sumMatrix.twoDMatrix[row][col] = ourMatrix.twoDMatrix[row][col] + secondMatrix.twoDMatrix[row][col]
+			sumMatrix.TwoDMatrix[row][col] = ourMatrix.TwoDMatrix[row][col] + secondMatrix.TwoDMatrix[row][col]
 		}
 	}
 }
@@ -52,7 +51,7 @@ func (ourMatrix Matrix) printAsJson(){
 	if err != nil{
 		log.Fatal(err)
 	}
-	fmt.Printf("s\n",data)
+	fmt.Printf("%s\n",string(data))
 }
 func main(){
 	ourMatrix := Initialiser(3,3)
@@ -60,22 +59,22 @@ func main(){
 	fmt.Println(ourMatrix.columnSize())//b part
 	for row:=0 ; row < ourMatrix.rowSize() ; row++{
 		for col:=0; col < ourMatrix.columnSize(); col++{
-			ourMatrix.twoDMatrix[row][col] = row + col
+			ourMatrix.TwoDMatrix[row][col] = row + col
 		}
 	}
-	fmt.Println(ourMatrix.twoDMatrix)
+	fmt.Println(ourMatrix.TwoDMatrix)
 	ourMatrix.setElements(2,2,10)//c part
-	fmt.Println(ourMatrix.twoDMatrix)
+	fmt.Println(ourMatrix.TwoDMatrix)
 	//initialising the second matrix
 	secondMatrix := Initialiser(3,3)
 	for row:=0 ; row < secondMatrix.rowSize() ; row++{
 		for col:=0; col < secondMatrix.columnSize(); col++{
-			secondMatrix.twoDMatrix[row][col] = row + 2*col
+			secondMatrix.TwoDMatrix[row][col] = row + 2*col
 		}
 	}
 	sumMatrix := Initialiser(3,3)//matrix that will store the sum of 2 matrices
 	ourMatrix.addMatrix(secondMatrix,sumMatrix)//d part
-	fmt.Println(sumMatrix.twoDMatrix)
+	fmt.Println(sumMatrix.TwoDMatrix)
 	ourMatrix.printAsJson()//e part
 
 

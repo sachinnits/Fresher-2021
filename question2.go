@@ -1,5 +1,7 @@
 package main
-import "fmt"
+import (
+	"fmt"
+)
 type Node struct {
 	data string
 	left *Node
